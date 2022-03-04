@@ -7,6 +7,7 @@ class Square {
     int rank, file;
     // Color of tile
     color col;
+    Piece piece;
     
     // Standard constructor for a square
     // Inputs: rank, file, and the board object this square belongs to
@@ -23,21 +24,42 @@ class Square {
         }
     }
     
+    Piece setPiece(int pieceInfo) {
+        piece = new Piece(this,pieceInfo);
+        return piece;
+    }
+    
+    void setPiece(Piece piece) {
+        piece.setSquare(this);
+        this.piece = piece;
+    }
+    
+    // Map the rank and file to the proper coordinates for processing
+    float getX() {
+        return map(file,0,7,0,board.size()-size());
+    }
+    float getY() {
+        return map(rank,0,7,board.size()-size(),0);
+    }
+    
+    float size() {
+        return board.size()/8;
+    }
     
     void render() {
-        // size of a square is 1/8th of the size of the board its in
-        float size = board.size()/8;
-        // Map the rank and file to the proper coordinates for processing
-        float x = map(file,0,7,0,board.size()-size);
-        float y = map(rank,0,7,board.size()-size,0);
+        float x = getX();
+        float y = getY();
         
         //Styling
         noStroke();
         fill(col);
         
         //Render
-        square(x,y,size);
-        
+        square(x,y,size());
+        // Render piece if it exists
+        if(piece != null) {
+            piece.render();
+        }
     }
         
     

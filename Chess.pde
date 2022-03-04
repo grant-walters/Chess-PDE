@@ -6,6 +6,7 @@ void setup() {
     size(900,900);
     // Initialize board object
     board = new Board();
+    board.loadFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 }
 
 // Draw function runs every frame
